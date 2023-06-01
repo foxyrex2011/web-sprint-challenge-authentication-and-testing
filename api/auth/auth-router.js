@@ -42,7 +42,7 @@ router.post('/register', validate, checkUsername, (req, res, next) => {
   */
 });
 
-router.post('/login', async (req, res, next) => {
+router.post('/login', validate, async (req, res, next) => {
   let { username, password } = req.body;
   try {
     const [user] = await User.findBy({username});
@@ -85,7 +85,7 @@ function buildToken(user) {
     subject: user.id,
     username: user.username,
   }
-  return jwt.sign(payload, JWT_SECRET, { expiresIn: '1d'})
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: '1d' })
 }
 
 module.exports = router;

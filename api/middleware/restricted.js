@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken')
 const { JWT_SECRET } = require('../auth/secret')
 
 module.exports = (req, res, next) => {
-  const token = req.headers.authorization.split(' ')[1]
+  const token = req.headers.authorization
 
   if (!token) {
     res.status(401).json({ message: 'token required' })
@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
     req.jwt = token
     if (err) {
       console.log(err);
-      res.status(401).json({ message: 'token invalid'})
+      res.status(401).json({ message: 'token invalid' })
       return;
     }
     next();
